@@ -4,12 +4,15 @@ import java.util.function.Supplier;
 
 import edu.wpi.first.units.*;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.oi.OI;
-import frc.robot.oi.OIRealXbox;
+
+import frc.robot.oi.*;
+
+import frc.robot.subsystems.pneumatics.*;
+
 import frc.robot.subsystems.drivetrain.*;
 import frc.robot.subsystems.intake.*;
-import frc.robot.subsystems.pneumatics.*;
 import frc.robot.subsystems.shooter.*;
+import frc.robot.subsystems.climber.*;
 
 public final class Constants {
     private Constants() throws Exception { throw new Exception("Cannot instantiate `Constants`"); }
@@ -34,6 +37,8 @@ public final class Constants {
         public static final Supplier<DrivetrainIO> drivetrain = DrivetrainIORealFalcon500::new;
         public static final Supplier<IntakeIO> intake = IntakeIORealTalonSRX::new;
         public static final Supplier<FlywheelIO> flywheel = FlywheelIORealTalonFX::new;
+        public static final Supplier<TurretIO> turret = TurretIORealTalonSRX::new;
+        public static final Supplier<ClimberIO> climber = ClimberIORealTalonSRX::new;
     }
 
     public static final class CAN {
@@ -66,15 +71,17 @@ public final class Constants {
         public static final class Shooter {
             private Shooter() throws Exception { throw new Exception("Cannot instantiate `Constants.CAN.Shooter`"); }
 
-            public static final int upper = 2;
-            public static final int lower = 3;
+            public static final int flywheelPrimary = 3;
+            public static final int flywheelSecondary = 2;
+
+            public static final int turret = 9;
         }
 
         public static final class Climber {
             private Climber() throws Exception { throw new Exception("Cannot instantiate `Constants.CAN.Climber`"); }
 
-            public static final int primary = 0;
-            public static final int secondary = 0;
+            public static final int primary = 5;
+            public static final int secondary = 8;
         }
     }
 

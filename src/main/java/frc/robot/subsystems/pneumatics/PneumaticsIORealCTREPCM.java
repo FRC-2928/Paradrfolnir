@@ -16,37 +16,26 @@ public class PneumaticsIORealCTREPCM extends PneumaticsIO {
     public final Solenoid climbers = this.pcm.makeSolenoid(Constants.Pneumatics.climbers);
 
     @Override
-    public void compressor(final boolean enabled) {
-        if (enabled)
-            this.compressor.enableDigital();
-        else
-            this.compressor.disable();
-        ;
+    public final void compressor(final boolean enabled) {
+        if(enabled) this.compressor.enableDigital();
+        else this.compressor.disable();
     }
 
     @Override
-    public void shift(final boolean value) {
-        this.shifter.set(value);
-    }
+    public final void shift(final boolean value) { this.shifter.set(value); }
 
     @Override
-    public void lowerIntake(final boolean value) {
-        this.intake.set(value);
-    }
+    public final void lowerIntake(final boolean value) { this.intake.set(value); }
 
     @Override
-    public void openEjectors(final boolean value) {
-        this.ejectors.set(value);
-    }
+    public final void openEjectors(final boolean value) { this.ejectors.set(value); }
 
     @Override
-    public void climbersForward(final boolean value) {
-        this.climbers.set(value);
-    }
+    public final void climbersForward(final boolean value) { this.climbers.set(value); }
 
     @Override
-    public void updateInputs(final PneumaticsIOInputsAutoLogged inputs) {
-        inputs.impl = Constants.Implementation.Real;
+    public final void updateInputs(final PneumaticsIOInputsAutoLogged inputs) {
+        inputs.impl = "RealCTREPCM";
 
         inputs.compressorEnabled = this.compressor.isEnabled();
 

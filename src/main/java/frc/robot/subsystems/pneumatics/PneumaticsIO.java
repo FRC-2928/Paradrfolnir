@@ -2,12 +2,10 @@ package frc.robot.subsystems.pneumatics;
 
 import org.littletonrobotics.junction.AutoLog;
 
-import frc.robot.Constants;
-
 public abstract class PneumaticsIO {
     @AutoLog
     public static class PneumaticsIOInputs {
-        public Constants.Implementation impl = Constants.Implementation.Unknown;
+        public String impl = "unknown";
 
         public boolean compressorEnabled = false;
 
@@ -17,15 +15,15 @@ public abstract class PneumaticsIO {
         public boolean climbersForward = false;
     }
 
-    public abstract void compressor(boolean enabled);
+    public void compressor(final boolean enabled) {}
 
-    public abstract void shift(boolean enabled);
+    public void shift(final boolean enabled) {}
 
-    public abstract void lowerIntake(boolean enabled);
+    public void lowerIntake(final boolean enabled) {}
 
-    public abstract void openEjectors(boolean enabled);
+    public void openEjectors(final boolean enabled) {}
 
-    public abstract void climbersForward(boolean enabled);
+    public void climbersForward(final boolean enabled) {}
 
-    public abstract void updateInputs(PneumaticsIOInputsAutoLogged inputs);
+    public void updateInputs(final PneumaticsIOInputsAutoLogged inputs) {}
 }

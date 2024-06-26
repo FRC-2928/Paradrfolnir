@@ -5,12 +5,12 @@ import org.littletonrobotics.junction.Logger;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
-import edu.wpi.first.units.Units;
+import edu.wpi.first.units.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
 
-public class Drivetrain extends SubsystemBase {
+public final class Drivetrain extends SubsystemBase {
     public Drivetrain() {
         if(Robot.isReal()) this.io = Constants.RealHardware.drivetrain.get();
         else throw new Error("unimpl: DrivetrainIO non-real implementation");
@@ -21,7 +21,7 @@ public class Drivetrain extends SubsystemBase {
     
     private final DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(Units.Inches.of(23));
 
-    public void demand(ChassisSpeeds demand) {
+    public final void demand(final ChassisSpeeds demand) {
         DifferentialDriveWheelSpeeds speeds = this.kinematics.toWheelSpeeds(demand);
         speeds.desaturate(Constants.Drivetrain.maxSpeed);
         this.io.drive(
@@ -34,7 +34,8 @@ public class Drivetrain extends SubsystemBase {
     }
 
     @Override
-    public void periodic() {
-        
+    public final void periodic() {
+        this.io.updateInputs(this.inputs);
+        Logger.processInputs("Drivetrain", this.inputs);
     }
 }

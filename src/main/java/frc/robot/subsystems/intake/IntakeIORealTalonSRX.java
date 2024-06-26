@@ -9,11 +9,6 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import frc.robot.Constants;
 
 public final class IntakeIORealTalonSRX extends IntakeIO {
-    public final TalonSRX roller = new TalonSRX(Constants.CAN.Intake.roller);
-
-    public final TalonSRX interiorLeft = new TalonSRX(Constants.CAN.Intake.interiorLeft);
-    public final TalonSRX interiorRight = new TalonSRX(Constants.CAN.Intake.interiorRight);
-
     public IntakeIORealTalonSRX() {
         final TalonSRXConfiguration roller = new TalonSRXConfiguration();
         roller.peakOutputReverse = 0; // never let it run in reverse, ratchet will stall
@@ -34,24 +29,31 @@ public final class IntakeIORealTalonSRX extends IntakeIO {
         this.interiorRight.set(ControlMode.Follower, this.interiorLeft.getDeviceID());
     }
 
+    public final TalonSRX roller = new TalonSRX(Constants.CAN.Intake.roller);
+
+    public final TalonSRX interiorLeft = new TalonSRX(Constants.CAN.Intake.interiorLeft);
+    public final TalonSRX interiorRight = new TalonSRX(Constants.CAN.Intake.interiorRight);
+
     @Override
-    public void intake(final boolean run) {
-        this.roller.set(ControlMode.PercentOutput, run ? 0.5 : 0);
+    public final void intake(final boolean run) {
+        this.roller.set(ControlMode.PercentOutput, run ? 1 : 0);
     }
 
     @Override
-    public void feeder(final FeederDemand demand) {
-        this.interiorLeft.overrideLimitSwitchesEnable(demand != FeederDemand.Shoot);
+    public final void feeder(final FeederDemand demand) {
+        this.interiorLeft.overrideLimitSwitchesEnable(demand == FeederDemand.Intake);
         this.interiorLeft.set(ControlMode.PercentOutput, switch(demand) {
             case Idle -> 0;
-            case Intake -> 0.25;
+            case Intake -> 0.5;
             case Shoot -> 1;
+            case Rectify -> -0.5;
         });
     }
 
     @Override
-    public void updateInputs(final IntakeIOInputsAutoLogged inputs) {
+    public final void updateInputs(final IntakeIOInputsAutoLogged inputs) {
         inputs.innerHeld = !this.interiorLeft.getSensorCollection().isFwdLimitSwitchClosed();
         inputs.outerHeld = this.roller.getSensorCollection().isFwdLimitSwitchClosed();
+        inputs.holding = inputs.innerHeld ? (inputs.outerHeld ? 2 : 1) : 0;
     }
 }

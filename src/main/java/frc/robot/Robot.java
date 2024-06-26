@@ -12,11 +12,18 @@ import org.littletonrobotics.junction.wpilog.WPILOGReader;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.oi.OI;
+import frc.robot.subsystems.climber.Climber;
+import frc.robot.subsystems.drivetrain.Drivetrain;
+import frc.robot.subsystems.drivetrain.Transmission;
+import frc.robot.subsystems.intake.Intake;
+import frc.robot.subsystems.pneumatics.Pneumatics;
+import frc.robot.subsystems.shooter.Flywheel;
+import frc.robot.subsystems.shooter.Turret;
 
 public class Robot extends LoggedRobot {
 	public static Robot instance;
-	public static RobotContainer cont;
-
+	
 	public Robot() {
 		super();
 		
@@ -44,14 +51,22 @@ public class Robot extends LoggedRobot {
 		Robot.instance = this;
 	}
 
-	public RobotContainer container;
+    public final OI oi = Constants.RealHardware.oi.get();
+
+    public final Pneumatics pneumatics = new Pneumatics();
+
+    public final Drivetrain drivetrain = new Drivetrain();
+    public final Transmission transmission = new Transmission();
+    public final Intake intake = new Intake();
+    public final Flywheel flywheel = new Flywheel();
+    public final Turret turret = new Turret();
+    public final Climber climber = new Climber();
 
 	@Override
 	public void robotInit() {
-		this.container = new RobotContainer();
-		Robot.cont = this.container;
+        this.oi.config(this);
 
-		this.container.config(this);
+        this.intake.config(this);
 	}
 
 	@Override

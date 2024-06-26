@@ -1,5 +1,7 @@
 package frc.robot.subsystems.shooter;
 
+import org.littletonrobotics.junction.Logger;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
@@ -15,6 +17,7 @@ public final class Flywheel extends SubsystemBase {
 
     @Override
     public void periodic() {
-
+        this.io.updateInputs(this.inputs);
+        Logger.processInputs("Flywheel", this.inputs);
     }
 }

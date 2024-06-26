@@ -14,11 +14,12 @@ public abstract class IntakeIO {
         Idle,
         Intake,
         Shoot,
+        Rectify,
     }
 
-    public abstract void intake(boolean run);
+    public void intake(boolean run) {}
 
-    public abstract void feeder(FeederDemand demand);
+    public void feeder(FeederDemand demand) {}
 
-    public abstract void updateInputs(IntakeIOInputsAutoLogged inputs);
+    public void updateInputs(IntakeIOInputsAutoLogged inputs) {}
 }
