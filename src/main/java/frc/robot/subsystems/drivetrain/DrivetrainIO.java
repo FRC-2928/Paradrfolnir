@@ -2,16 +2,17 @@ package frc.robot.subsystems.drivetrain;
 
 import org.littletonrobotics.junction.AutoLog;
 
-import edu.wpi.first.units.*;
+import edu.wpi.first.units.Units;
+import edu.wpi.first.units.measure.*;
 
 public abstract class DrivetrainIO {
     @AutoLog
     public static class DrivetrainIOInputs {
-        public Measure<Velocity<Distance>> velocityLeft = Units.MetersPerSecond.zero();
-        public Measure<Velocity<Distance>> velocityRight = Units.MetersPerSecond.zero();
+        public LinearVelocity velocityLeft = Units.MetersPerSecond.zero();
+        public LinearVelocity velocityRight = Units.MetersPerSecond.zero();
     }
 
-    public void drive(final Measure<Velocity<Distance>> left, final Measure<Velocity<Distance>> right) {}
+    public void drive(final LinearVelocity left, final LinearVelocity right) {}
 
-    public void updateInputs(final DrivetrainIOInputsAutoLogged inputs) {}
+    public void updateInputs(final DrivetrainIOInputs inputs) {}
 }

@@ -2,7 +2,8 @@ package frc.robot;
 
 import java.util.function.Supplier;
 
-import edu.wpi.first.units.*;
+import edu.wpi.first.units.Units;
+import edu.wpi.first.units.measure.*;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 import frc.robot.oi.*;
@@ -46,6 +47,7 @@ public final class Constants {
 
         // todo
         public static final int pcm = 0;
+        public static final String kCANBus = "rio";
 
         public static final class Drivetrain {
             private Drivetrain() throws Exception {
@@ -98,6 +100,6 @@ public final class Constants {
     public static final class Drivetrain {
         private Drivetrain() throws Exception { throw new Exception("Cannot instantiate `Constants.Drivetrain`"); }
 
-        public static final Measure<Velocity<Distance>> maxSpeed = Units.MetersPerSecond.of(4);
+        public static final LinearVelocity maxSpeed = Units.MetersPerSecond.of(4);
     }
 }

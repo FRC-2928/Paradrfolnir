@@ -34,7 +34,7 @@ public class PneumaticsIORealCTREPCM extends PneumaticsIO {
     public final void climbersForward(final boolean value) { this.climbers.set(value); }
 
     @Override
-    public final void updateInputs(final PneumaticsIOInputsAutoLogged inputs) {
+    public final void updateInputs(final PneumaticsIOInputs inputs) {
         inputs.impl = "RealCTREPCM";
 
         inputs.compressorEnabled = this.compressor.isEnabled();

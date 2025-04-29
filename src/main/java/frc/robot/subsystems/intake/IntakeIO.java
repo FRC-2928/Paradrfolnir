@@ -21,5 +21,5 @@ public abstract class IntakeIO {
 
     public void feeder(FeederDemand demand) {}
 
-    public void updateInputs(IntakeIOInputsAutoLogged inputs) {}
+    public void updateInputs(IntakeIOInputs inputs) {}
 }

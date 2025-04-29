@@ -5,6 +5,7 @@ import org.littletonrobotics.junction.Logger;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
+import frc.robot.subsystems.pneumatics.PneumaticsIO.PneumaticsIOInputs;
 
 public final class Pneumatics extends SubsystemBase {
     public Pneumatics() {
@@ -13,11 +14,11 @@ public final class Pneumatics extends SubsystemBase {
     }
 
     public final PneumaticsIO io;
-    public final PneumaticsIOInputsAutoLogged inputs = new PneumaticsIOInputsAutoLogged();
+    public final PneumaticsIOInputs inputs = new PneumaticsIOInputs();
 
     @Override
     public final void periodic() {
         this.io.updateInputs(this.inputs);
-        Logger.processInputs("Pneumatics", this.inputs);
+        // Logger.processInputs("Pneumatics", this.inputs);
     }
 }

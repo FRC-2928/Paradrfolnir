@@ -5,7 +5,8 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 
-import edu.wpi.first.units.*;
+import edu.wpi.first.units.Units;
+import edu.wpi.first.units.measure.*;
 import frc.robot.Constants;
 
 public final class ClimberIORealTalonSRX extends ClimberIO {
@@ -25,10 +26,10 @@ public final class ClimberIORealTalonSRX extends ClimberIO {
 
     // todo: sens:mech ratio
     @Override
-    public final void move(final Measure<Velocity<Distance>> velocity) { this.primary.set(ControlMode.PercentOutput, velocity.in(Units.MetersPerSecond)); }
+    public final void move(final LinearVelocity velocity) { this.primary.set(ControlMode.PercentOutput, velocity.in(Units.MetersPerSecond)); }
 
     @Override
-    public final void updateInputs(final ClimberIOInputsAutoLogged inputs) {
+    public final void updateInputs(final ClimberIOInputs inputs) {
         // todo: sens:mech ratio
         inputs.position = Units.Inches.of(this.primary.getSelectedSensorPosition());
     }

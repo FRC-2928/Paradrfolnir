@@ -2,15 +2,16 @@ package frc.robot.subsystems.climber;
 
 import org.littletonrobotics.junction.AutoLog;
 
-import edu.wpi.first.units.*;
+import edu.wpi.first.units.Units;
+import edu.wpi.first.units.measure.*;
 
 public abstract class ClimberIO {
     @AutoLog
     public static class ClimberIOInputs {
-        public Measure<Distance> position = Units.Inches.zero();
+        public Distance position = Units.Inches.zero();
     }
 
-    public void move(final Measure<Velocity<Distance>> velocity) {}
+    public void move(final LinearVelocity velocity) {}
 
-    public void updateInputs(final ClimberIOInputsAutoLogged inputs) {}
+    public void updateInputs(final ClimberIOInputs inputs) {}
 }

@@ -5,6 +5,7 @@ import org.littletonrobotics.junction.Logger;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
+import frc.robot.subsystems.climber.ClimberIO.ClimberIOInputs;
 
 // todo: io
 
@@ -15,13 +16,13 @@ public final class Climber extends SubsystemBase {
     }
 
     public final ClimberIO io;
-    public final ClimberIOInputsAutoLogged inputs = new ClimberIOInputsAutoLogged();
+    public final ClimberIOInputs inputs = new ClimberIOInputs();
     
     public final void forward(final boolean forward) { Robot.instance.pneumatics.io.climbersForward(forward); }
 
     @Override
     public void periodic() {
         this.io.updateInputs(this.inputs);
-        Logger.processInputs("Climber", this.inputs);
+        // Logger.processInputs("Climber", this.inputs);
     }
 }

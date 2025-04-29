@@ -25,5 +25,5 @@ public abstract class PneumaticsIO {
 
     public void climbersForward(final boolean enabled) {}
 
-    public void updateInputs(final PneumaticsIOInputsAutoLogged inputs) {}
+    public void updateInputs(final PneumaticsIOInputs inputs) {}
 }

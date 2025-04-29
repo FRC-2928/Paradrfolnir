@@ -10,7 +10,8 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
-import edu.wpi.first.units.*;
+import edu.wpi.first.units.Units;
+import edu.wpi.first.units.measure.*;
 
 import frc.robot.Constants;
 
@@ -26,18 +27,18 @@ public final class FlywheelIORealTalonFX extends FlywheelIO {
         secondary.MotorOutput.NeutralMode = NeutralModeValue.Coast;
         this.secondary.getConfigurator().apply(secondary);
 
-        BaseStatusSignal.setUpdateFrequencyForAll(100, this.primaryVelocity, this.secondaryVelocity);
-        ParentDevice.optimizeBusUtilizationForAll(this.secondary, this.primary);
+        BaseStatusSignal.setUpdateFrequencyForAll(50, this.primaryVelocity, this.secondaryVelocity);
+        // ParentDevice.optimizeBusUtilizationForAll(this.secondary, this.primary);
     }
 
     public final TalonFX primary = new TalonFX(Constants.CAN.Shooter.flywheelPrimary);
     public final TalonFX secondary = new TalonFX(Constants.CAN.Shooter.flywheelSecondary);
     
-    private final StatusSignal<Double> primaryVelocity = this.primary.getVelocity();
-    private final StatusSignal<Double> secondaryVelocity = this.secondary.getVelocity();
+    private final StatusSignal<AngularVelocity> primaryVelocity = this.primary.getVelocity();
+    private final StatusSignal<AngularVelocity> secondaryVelocity = this.secondary.getVelocity();
 
     @Override
-    public final void run(final Measure<Dimensionless> primary, final Measure<Dimensionless> secondary) {
+    public final void run(final Dimensionless primary, final Dimensionless secondary) {
         this.primary.set(primary.in(Units.Value));
         this.secondary.set(secondary.in(Units.Value));
 
@@ -46,7 +47,7 @@ public final class FlywheelIORealTalonFX extends FlywheelIO {
     }
 
     @Override
-    public final void updateInputs(final FlywheelIOInputsAutoLogged inputs) {
+    public final void updateInputs(final FlywheelIOInputs inputs) {
         BaseStatusSignal.refreshAll(this.primaryVelocity, this.secondaryVelocity);
 
         inputs.velocityPrimary = Units.RotationsPerSecond.of(this.primaryVelocity.getValueAsDouble());

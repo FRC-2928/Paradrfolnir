@@ -5,10 +5,12 @@ import org.littletonrobotics.junction.Logger;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
-import edu.wpi.first.units.*;
+import edu.wpi.first.units.Units;
+import edu.wpi.first.units.measure.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
+import frc.robot.subsystems.drivetrain.DrivetrainIO.DrivetrainIOInputs;
 
 public final class Drivetrain extends SubsystemBase {
     public Drivetrain() {
@@ -17,7 +19,7 @@ public final class Drivetrain extends SubsystemBase {
     }
     
     public final DrivetrainIO io;
-    public final DrivetrainIOInputsAutoLogged inputs = new DrivetrainIOInputsAutoLogged();
+    public final DrivetrainIOInputs inputs = new DrivetrainIOInputs();
     
     private final DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(Units.Inches.of(23));
 
@@ -36,6 +38,6 @@ public final class Drivetrain extends SubsystemBase {
     @Override
     public final void periodic() {
         this.io.updateInputs(this.inputs);
-        Logger.processInputs("Drivetrain", this.inputs);
+        // Logger.processInputs("Drivetrain", this.inputs);
     }
 }

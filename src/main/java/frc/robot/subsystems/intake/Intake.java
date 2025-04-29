@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.subsystems.intake.IntakeIO.FeederDemand;
+import frc.robot.subsystems.intake.IntakeIO.IntakeIOInputs;
 
 public final class Intake extends SubsystemBase {
     public Intake() {
@@ -15,7 +16,7 @@ public final class Intake extends SubsystemBase {
     }
 
     public final IntakeIO io;
-    public final IntakeIOInputsAutoLogged inputs = new IntakeIOInputsAutoLogged();
+    public final IntakeIOInputs inputs = new IntakeIOInputs();
 
     public final void ejectors(final boolean open) { Robot.instance.pneumatics.io.openEjectors(open); }
 
@@ -42,6 +43,6 @@ public final class Intake extends SubsystemBase {
     @Override
     public final void periodic() {
         this.io.updateInputs(this.inputs);
-        Logger.processInputs("Intake", this.inputs);
+        // Logger.processInputs("Intake", this.inputs);
     }
 }

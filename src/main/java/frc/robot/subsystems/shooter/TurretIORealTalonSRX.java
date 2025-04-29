@@ -8,7 +8,8 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 
-import edu.wpi.first.units.*;
+import edu.wpi.first.units.Units;
+import edu.wpi.first.units.measure.*;
 
 import frc.robot.Constants;
 
@@ -25,17 +26,17 @@ public final class TurretIORealTalonSRX extends TurretIO {
     public final TalonSRX turret = new TalonSRX(Constants.CAN.Shooter.turret);
 
     @Override
-    public final void turn(final Measure<Velocity<Angle>> rotation) {
+    public final void turn(final AngularVelocity rotation) {
         this.turret.set(ControlMode.PercentOutput, rotation.in(Units.RotationsPerSecond));
 
         Logger.recordOutput("Turret/Primary Demand", rotation.in(Units.RotationsPerSecond));
     }
 
     @Override
-    public final void to(final Measure<Angle> target) { throw new Error("unimpl: TurretIORealTalonSRX.to"); }
+    public final void to(final Angle target) { throw new Error("unimpl: TurretIORealTalonSRX.to"); }
 
     @Override
-    public final void updateInputs(final TurretIOInputsAutoLogged inputs) {
+    public final void updateInputs(final TurretIOInputs inputs) {
         // todo: sens:mech ratio
         inputs.angle = Units.Rotations.of(this.turret.getSelectedSensorPosition());
         inputs.velocity = Units.RotationsPerSecond.of(this.turret.getSelectedSensorVelocity());

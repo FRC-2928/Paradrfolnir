@@ -36,7 +36,7 @@ public final class IntakeIORealTalonSRX extends IntakeIO {
 
     @Override
     public final void intake(final boolean run) {
-        this.roller.set(ControlMode.PercentOutput, run ? 1 : 0);
+        this.roller.set(ControlMode.PercentOutput, run ? 0.5 : 0);
     }
 
     @Override
@@ -51,7 +51,7 @@ public final class IntakeIORealTalonSRX extends IntakeIO {
     }
 
     @Override
-    public final void updateInputs(final IntakeIOInputsAutoLogged inputs) {
+    public final void updateInputs(final IntakeIOInputs inputs) {
         inputs.innerHeld = !this.interiorLeft.getSensorCollection().isFwdLimitSwitchClosed();
         inputs.outerHeld = this.roller.getSensorCollection().isFwdLimitSwitchClosed();
         inputs.holding = inputs.innerHeld ? (inputs.outerHeld ? 2 : 1) : 0;
