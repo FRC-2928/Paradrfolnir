@@ -67,6 +67,8 @@ public class Robot extends LoggedRobot {
         this.oi.config(this);
 
         this.intake.config(this);
+		Tuning.shootSpeed.get();
+		Tuning.shootRatio.get();
 	}
 
 	@Override

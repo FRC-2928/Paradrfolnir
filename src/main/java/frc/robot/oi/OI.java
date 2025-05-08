@@ -1,6 +1,7 @@
 package frc.robot.oi;
 
 import java.util.function.Supplier;
+import org.littletonrobotics.junction.Logger;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.units.Units;
@@ -12,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants;
 import frc.robot.Robot;
+import frc.robot.Tuning;
 import frc.robot.subsystems.intake.IntakeIO.FeederDemand;
 
 public class OI {
@@ -80,7 +82,9 @@ public class OI {
         // todo: turret home
 
         this.toggleFlywheel.toggleOnTrue(new StartEndCommand(
-            () -> robot.flywheel.io.run(Units.Percent.of(100), Units.Percent.of(100)),
+            () -> {robot.flywheel.io.run(Units.Percent.of(Tuning.shootSpeed.get()), Units.Percent.of(Tuning.shootSpeed.get()).times(Tuning.shootRatio.get()));
+                    Logger.recordOutput("CommandShoot/shootSpeed", Tuning.shootSpeed.get());
+                    Logger.recordOutput("CommandShoot/shootRatio", Tuning.shootRatio.get());},
             () -> robot.flywheel.io.run(Units.Percent.of(0), Units.Percent.of(0)),
             robot.flywheel
         ));
@@ -111,17 +115,17 @@ public class OI {
             public InterruptionBehavior getInterruptionBehavior() { return InterruptionBehavior.kCancelIncoming; }
         });
 
-        this.raiseClimbers.whileTrue(new StartEndCommand(
-            () -> robot.climber.io.move(Units.InchesPerSecond.of(40)),
-            () -> robot.climber.io.move(Units.InchesPerSecond.zero())
-        ));
-        this.lowerClimbers.whileTrue(new StartEndCommand(
-            () -> robot.climber.io.move(Units.InchesPerSecond.of(-40)),
-            () -> robot.climber.io.move(Units.InchesPerSecond.zero())
-        ));
-        this.climberPosition.toggleOnTrue(new StartEndCommand(
-            () -> robot.climber.forward(true),
-            () -> robot.climber.forward(false)
-        ));
+        // this.raiseClimbers.whileTrue(new StartEndCommand(
+        //     () -> robot.climber.io.move(Units.InchesPerSecond.of(40)),
+        //     () -> robot.climber.io.move(Units.InchesPerSecond.zero())
+        // ));
+        // this.lowerClimbers.whileTrue(new StartEndCommand(
+        //     () -> robot.climber.io.move(Units.InchesPerSecond.of(-40)),
+        //     () -> robot.climber.io.move(Units.InchesPerSecond.zero())
+        // ));
+        // this.climberPosition.toggleOnTrue(new StartEndCommand(
+        //     () -> robot.climber.forward(true),
+        //     () -> robot.climber.forward(false)
+        // ));
     }
 }
